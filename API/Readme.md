@@ -8,6 +8,8 @@
     git clone https://github.com/generic-matrix/foodx.git
 	cd API
 * Open the folder in the IDE your prefer
+* In the application.proprties the user index is defined test2 , you can create the index using kibana or cURL as : 
+	PUT /test2
 * ###### See the  ETL folder to add the data into the elastic search
 
 ## Test
