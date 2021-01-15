@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "29d6b496-f4cb-426d-891f-d6ee8d16d396",
+		"name": "Test API SpringBoot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login User /login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"test@test.com\",\n    \"password\" : \"test_password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post User /signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"test@test.com\",\n    \"password\" : \"test_password\",\n    \"name\": \"michael \"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/v1/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"v1",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autocomplete food",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA3MTgyNjAsImlkIjoiMTYxMDcxODI0NyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9.OhgGcbc_fNvi7Fe2rWUbwvQ61AUnhCn6ZMQu-XMoHuI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/v1/autocomplete?food_name=Fried Rice Restaurant Style",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"v1",
+						"autocomplete"
+					],
+					"query": [
+						{
+							"key": "food_name",
+							"value": "Fried Rice Restaurant Style"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Food By ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA3MTgwMzIsImlkIjoiMTYxMDY4NTYwNiIsImVtYWlsIjoia2F1c3R1YmhiYXdhMTIzNDVAZ21haWwuY29tIn0.Ha4CqeymulScj7-H0P-7ciHiUhaacxdfiTDgA0e3y4g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9091/api/v1/search?food_id=573",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"v1",
+						"search"
+					],
+					"query": [
+						{
+							"key": "food_id",
+							"value": "573"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Near me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA3MTgyNjAsImlkIjoiMTYxMDcxODI0NyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9.OhgGcbc_fNvi7Fe2rWUbwvQ61AUnhCn6ZMQu-XMoHuI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9091/api/v1/nearme?lat=-33.04752&lng=-71.44249",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"v1",
+						"nearme"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "-33.04752"
+						},
+						{
+							"key": "lng",
+							"value": "-71.44249"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add rating",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA3MTgyNjAsImlkIjoiMTYxMDcxODI0NyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9.OhgGcbc_fNvi7Fe2rWUbwvQ61AUnhCn6ZMQu-XMoHuI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"food_id\":\"573\",\n    \"user_name\":\"Kaustubh B.\",\n    \"message\":\"Good\",\n    \"star\":\"4.5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/v1/add-rating",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"v1",
+						"add-rating"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
