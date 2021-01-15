@@ -5,7 +5,9 @@
 ## Steps
 * Download the raw json from https://raw.githubusercontent.com/kz882/recipe/master/recipes_raw_nosource_ar.json
 * Run the command
+
 		python3 transform.py /users/Downloads/recipes_raw_nosource_ar.json
+
 A file called data.txt will be generated in the same directory as the python file
 
 * Head over to Kibana and define the mapping structure
