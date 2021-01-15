@@ -144,8 +144,6 @@ Response
 		{
 			"error": null,
 			"data": true
-<<<<<<< HEAD
 		}
-=======
 		}
->>>>>>> e4d8858fcdb31875c190e3ab9fa3475f23d732ab
+
