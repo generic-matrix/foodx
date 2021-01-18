@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 export default function FoodCard(props) {
   const classes = useStyles();
   return (
-    <Card className={classes.root} style={{"width":"250px","height":"300px"}}>
+    <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}

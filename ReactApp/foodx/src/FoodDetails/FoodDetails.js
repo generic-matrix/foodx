@@ -189,7 +189,8 @@ export default function FoodDetails(props) {
             <br/><br/>
             <Button variant="outlined" color="secondary" onClick={()=>{
                   //setMessage,setOpen
-                  Util.AddRating(data.id,"test user",feedback_msg,feedback_star,Cookies).then((result)=>{
+                  let user_data=Util.parseJwt(Cookies.get('token'))
+                  Util.AddRating(data.id,user_data.email.split("@")[0],feedback_msg,feedback_star,Cookies).then((result)=>{
                     setMessage("Review Added !")
                     setOpen(true)
                   }).catch((error)=>{
