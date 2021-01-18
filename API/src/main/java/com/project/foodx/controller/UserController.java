@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+//Access-Control-Allow-Credentials: true
+//Access-Control-Allow-Headers: authorization
+//Access-Control-Allow-Methods: GET
 
 @RestController
 @RequestMapping(value = "/v1")
@@ -22,7 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value ="/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value ="/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseObject login(@RequestBody User requestUserDetails) {
         User userDto = new User();
         BeanUtils.copyProperties(requestUserDetails, userDto);
