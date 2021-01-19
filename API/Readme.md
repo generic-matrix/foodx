@@ -149,3 +149,6 @@ Response
 		}
 		}
 
+## Security Config (CORS settings) :
+
+The CORS settings in /API/src/main/java/com/project/foodx/FoodxApplication.java the function name is corsFilter ,the header needs to be changed from * to the production url 

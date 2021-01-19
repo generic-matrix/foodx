@@ -1,4 +1,4 @@
-## Foodx - Simple Food App with 35k+ Food Data made with React and API based on Spring Boot
+## Foodx - Simple Food Website with 35k+ Food Data made with React and API based on Spring Boot
 
 
 
@@ -15,4 +15,5 @@ Go to the API , ETL and ReactApp folder and read Readme.md
 - Add Review 
 - Show Reviews
 
+### For More images visit the images folder :
 ![For website screenshots please go to the images folder ](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/dashboard.png)
