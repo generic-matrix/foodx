@@ -6,6 +6,12 @@
 
 Go to the API , ETL and ReactApp folder and read Readme.md 
 
+### Stack used :
+
+- React.js
+- Spring Boot
+- Elastic Search
+
 ### Features :
 
 - Login /Logout
