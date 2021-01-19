@@ -119,9 +119,9 @@ export default function FoodDetails(props) {
                     
                     data.ingredients.map((obj, index) => (
                         (index===0)?(
-                                <div>
+                                <div key={index}>
                                     <h2>{data.title}</h2><br/>
-                                    <div key={index}><p>{obj}</p><br/></div>
+                                    <div ><p>{obj}</p><br/></div>
                                 </div>
                             ):(
                                 <div key={index}><p>{obj}</p><br/></div>
@@ -151,7 +151,7 @@ export default function FoodDetails(props) {
                     </div>
                 ):(
                     data.rating.map((obj, index) => (
-                        <div style={{"padding":"10px"}}>
+                        <div key={index} style={{"padding":"10px"}}>
                             <Card className={classes.root}>
                                 <CardHeader
                                     avatar={

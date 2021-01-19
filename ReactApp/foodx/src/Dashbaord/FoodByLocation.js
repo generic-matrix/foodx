@@ -58,7 +58,7 @@ class FoodByLocation extends React.Component{
                             <br/>
                             <Grid container spacing={3}>
                             {this.state.data.map((obj, index) => (
-                                    <Grid item xs onClick={()=>{this.GetFoodDetails(obj.id)}} >
+                                    <Grid item xs onClick={()=>{this.GetFoodDetails(obj.id)}} key={index} >
                                         <FoodCard key={obj.id} title={obj.name} rating={obj.rating} review_count={obj.rating_count} />
                                     </Grid>
                                 ))

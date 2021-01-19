@@ -14,7 +14,7 @@ function Dashboard(props) {
   const OnSelectOption=(value)=>{
     let food_id=Util.GetFoodId(results,value);
     if(food_id!=null){
-      set_specific_food_id(food_id)
+        set_specific_food_id(food_id)
     }
   }
 
@@ -40,20 +40,24 @@ function Dashboard(props) {
 
   return (
     <div>
-      <Grid container justify = "center" style={{"paddingTop":"20px"}}>
-        <Autocomplete style={{"width":"80%"}}
-          id="autocomplete"
-          options={results}
-          getOptionLabel={(option) => option.name}
-          renderInput={(params) => <TextField {...params} label="What do you want to make today ?" onChange={(event)=>{AutoComplete(event.target.value)}}  placeholder="What do you want to make today ?" variant="outlined" />}
-          onSelect={(val)=>OnSelectOption(val.target.value)}
-          noOptionsText={default_message}
-        />
-        <Button onClick={()=>{props.logout()}}>&nbsp;Logout</Button>
-      </Grid>
+      {
+        (specific_food_id===null)?(
+          <Grid container justify = "center" style={{"paddingTop":"20px"}}>
+            <Autocomplete style={{"width":"80%"}}
+              id="autocomplete"
+              options={results}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => <TextField {...params} label="What do you want to make today ?" onChange={(event)=>{AutoComplete(event.target.value)}}  placeholder="What do you want to make today ?" variant="outlined" />}
+              onSelect={(val)=>OnSelectOption(val.target.value)}
+              noOptionsText={default_message}
+            />
+            <Button onClick={()=>{props.logout()}}>&nbsp;Logout</Button>
+          </Grid>
+        ):(<div/>)
+      }
       <br/>
       {
-        (specific_food_id!==null)?(<FoodDetails set_food_id={set_specific_food_id} food_id={specific_food_id}/>):(<FoodByLocation set_food_id={set_specific_food_id}/>)
+        (specific_food_id!==null)?(<FoodDetails set_food_id={set_specific_food_id} food_id={specific_food_id} />):(<FoodByLocation set_food_id={set_specific_food_id}/>)
       }
     </div>
   );

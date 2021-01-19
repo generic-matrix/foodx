@@ -33,7 +33,7 @@ export default function FoodCard(props) {
           <Typography gutterBottom variant="h5" component="h2">
           {props.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="div">
           <Box display="flex">
             <Rating name="read-only" value={parseFloat(props.rating)} readOnly />
             <Chip size="small" label={props.review_count+" reviews"}/>
