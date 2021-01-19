@@ -120,8 +120,7 @@ public class UserRepositoryImpl implements UserRepository{
         searchRequest.indices(FoodIndex);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         food_name=food_name.toLowerCase();
-        String[] keywords = food_name.split(" ");
-        searchSourceBuilder.query(QueryBuilders.boolQuery().filter(QueryBuilders.wildcardQuery("title","*"+keywords[0]+"*")));
+        searchSourceBuilder.query(QueryBuilders.boolQuery().filter(QueryBuilders.termQuery("title",food_name)));
         searchSourceBuilder.size(5);
         searchRequest.source(searchSourceBuilder);
         List<AutoComplete> autocomplete=new ArrayList<>();

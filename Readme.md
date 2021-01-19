@@ -1,0 +1,17 @@
+## Foodx - Simple Food App make with React and API based on Spring Boot
+
+
+
+### How to Install ?
+
+Go to the API , ETL and ReactApp folder and read Readme.md 
+
+### Features :
+
+- Login /Logout
+- Sign Up
+- Show foods based on your IP location (near by)
+- AutoComplete
+- Add Review 
+- Show Reviews
+

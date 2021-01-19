@@ -47,7 +47,7 @@ function Dashboard(props) {
               id="autocomplete"
               options={results}
               getOptionLabel={(option) => option.name}
-              renderInput={(params) => <TextField {...params} label="What do you want to make today ?" onChange={(event)=>{AutoComplete(event.target.value)}}  placeholder="What do you want to make today ?" variant="outlined" />}
+              renderInput={(params) => <TextField {...params} label="What do you want to make today ?" onChange={(event)=>{AutoComplete(event.target.value)}}  placeholder="Search for terms like Panckaes , maggie etc.." variant="outlined" />}
               onSelect={(val)=>OnSelectOption(val.target.value)}
               noOptionsText={default_message}
             />
