@@ -1,4 +1,4 @@
-## Foodx - Simple Food App make with React and API based on Spring Boot
+## Foodx - Simple Food App with 35k+ Food Data made with React and API based on Spring Boot
 
 
 
