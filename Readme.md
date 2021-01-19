@@ -15,3 +15,4 @@ Go to the API , ETL and ReactApp folder and read Readme.md
 - Add Review 
 - Show Reviews
 
+![For website screenshots please go to the images folder ](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/dashboard.png)
