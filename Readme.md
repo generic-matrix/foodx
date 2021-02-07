@@ -21,21 +21,8 @@ Go to the API , ETL and ReactApp folder and read Readme.md
 - Add Review 
 - Show Reviews
 
-### Website images:
-# Dashboard
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/dashboard.png)
-# Login
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/login.png)
-# Signup
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/sign_up.png)
-# AutoComplete
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/autocomplete.png)
-# Steps To Cook
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/steps_to_cook.png)
-# Rating 
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/rating.png)
-# Add Rating 
-![Dashboard](https://raw.githubusercontent.com/generic-matrix/foodx/master/images/add_rating.png)
+### Demo:
+[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/-2yrVmry8GE)
 
 ### For Contributing :
 Refer CONTRIBUTING.md
