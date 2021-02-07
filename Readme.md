@@ -1,4 +1,4 @@
-## Foodx - Simple Food Website with 35k+ Food Data made with React and API based on Spring Boot
+## Foodx - Simple Food Website with 35k+ Food Data made with React and API based on Spring Boot (Alexa Integration)
 
 
 
