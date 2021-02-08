@@ -11,6 +11,7 @@ Go to the API , ETL and ReactApp folder and read Readme.md
 - React.js
 - Spring Boot
 - Elastic Search
+- Redis
 
 ### Features :
 
