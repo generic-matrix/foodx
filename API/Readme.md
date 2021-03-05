@@ -153,4 +153,4 @@ Response
 
 The CORS settings in /API/src/main/java/com/project/foodx/FoodxApplication.java the function name is corsFilter ,the header needs to be changed from * to the production url 
 
-# The API must be accissable from :  http://localhost:9091
+### The API must be accissable from :  https://localhost
