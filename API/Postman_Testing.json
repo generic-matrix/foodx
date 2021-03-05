@@ -23,7 +23,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9091/api/v1/login",
+					"raw": "https://localhost/api/v1/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -53,7 +53,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9091/api/v1/signup",
+					"raw": "https://localhost/api/v1/signup",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,7 +92,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9091/api/v1/autocomplete?food_name=Fried Rice Restaurant Style",
+					"raw": "https://localhost/api/v1/autocomplete?food_name=Fried Rice Restaurant Style",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,7 +125,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:9091/api/v1/search?food_id=573",
+					"raw": "https://localhost/api/v1/search?food_id=573",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -158,7 +158,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:9091/api/v1/nearme?lat=-33.04752&lng=-71.44249",
+					"raw": "https://localhost/api/v1/nearme?lat=-33.04752&lng=-71.44249",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -204,7 +204,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9091/api/v1/add-rating",
+					"raw": "https://localhost/api/v1/add-rating",
 					"protocol": "http",
 					"host": [
 						"localhost"
