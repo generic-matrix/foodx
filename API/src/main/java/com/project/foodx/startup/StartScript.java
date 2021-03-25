@@ -15,6 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,13 +38,12 @@ class StartScript implements ApplicationRunner {
     private  RestHighLevelClient client;
 
     @Autowired
-    public StartScript(@Value("${elastic.host}") String host, @Value("${elastic.port}") Integer port, @Value("${elastic.scheme}") String scheme, @Value("${elastic.userindex}") String userindex,@Value("${redis_raw}") String redis_raw,@Value("${redis.host}") String redis_host,@Value("${redis.port}") Integer redis_port) {
+    public StartScript(@Value("${elastic.host}") String host, @Value("${elastic.port}") Integer port, @Value("${elastic.scheme}") String scheme, @Value("${elastic.userindex}") String userindex,@Value("${redis.host}") String redis_host,@Value("${redis.port}") Integer redis_port) {
         this.host = host;
         this.port = port;
         this.scheme = scheme;
         this.userindex = userindex;
         this.client=new RestHighLevelClient(RestClient.builder(new HttpHost(host,port,scheme)));
-        this.redis_raw=redis_raw;
         this.redis_host=redis_host;
         this.redis_port=redis_port;
     }
@@ -74,7 +74,7 @@ class StartScript implements ApplicationRunner {
         System.out.println("Indices intialization is successful");
         //Populate the redis instance with food title TTL : unlimited
         Jedis jedis = new Jedis(redis_host,redis_port);
-        Path path=Paths.get(redis_raw);
+        Path path=Paths.get(new File(".").getAbsolutePath().replace(".","src/main/java/com/project/foodx/startup/")+"redis_food_title.txt");
         List<String> names = Files.readAllLines(path);
         for (String name : names)
         {
