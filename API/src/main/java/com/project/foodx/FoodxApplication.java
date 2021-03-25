@@ -28,7 +28,7 @@ public class FoodxApplication {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("https://trygistify.com");
+		config.addAllowedOrigin("https://generic-matrix.github.io");
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		config.addExposedHeader("*");
