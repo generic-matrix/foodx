@@ -23,6 +23,9 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import static java.util.Collections.singletonMap;
@@ -54,6 +57,32 @@ public class UserRepositoryImpl implements UserRepository{
         this.jedis= new Jedis(redis_host,redis_port);
     }
 
+    public  String GetMd5(String input)
+    {
+        try {
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public Boolean AddUserToElasticSearch(User user) {
         try {
@@ -62,7 +91,7 @@ public class UserRepositoryImpl implements UserRepository{
                             .startObject()
                             .field("Userid", user.getId())
                             .field("email", user.getEmail())
-                            .field("password", user.getPassword())
+                            .field("password", GetMd5(user.getPassword()))
                             .field("name", user.getName())
                             .endObject());
             UpdateRequest updateRequest = new UpdateRequest(this.UserIndex, "type",user.getId())
@@ -70,7 +99,7 @@ public class UserRepositoryImpl implements UserRepository{
                             .startObject()
                             .field("Userid", user.getId())
                             .field("email", user.getEmail())
-                            .field("password", user.getPassword())
+                            .field("password", GetMd5(user.getPassword()))
                             .field("name", user.getName())
                             .endObject())
                     .upsert(indexRequest);
@@ -87,10 +116,9 @@ public class UserRepositoryImpl implements UserRepository{
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices(UserIndex);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.boolQuery().must(termQuery("email.keyword", user.getEmail())).must(termQuery("password.keyword", user.getPassword())));
+        searchSourceBuilder.query(QueryBuilders.boolQuery().must(termQuery("email.keyword", user.getEmail())).must(termQuery("password.keyword", GetMd5(user.getPassword()))));
         searchRequest.source(searchSourceBuilder);
         String return_id=null;
-
         try {
             SearchResponse searchResponse = null;
             searchResponse =client.search(searchRequest, RequestOptions.DEFAULT);
