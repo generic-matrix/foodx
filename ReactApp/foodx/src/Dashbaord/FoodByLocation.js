@@ -53,8 +53,9 @@ class FoodByLocation extends React.Component{
                 )
                 :(
                     this.state.page==="loaded"?(
-                        <div style={{"padding":"5%"}}>
+                        <div className="MuiTypography-root MuiTypography-body1">
                             <h2>People Around you have tried it</h2>
+                            <p>The images are powered by Unsplash</p>
                             <br/>
                             <Grid container spacing={3}>
                             {this.state.data.map((obj, index) => (

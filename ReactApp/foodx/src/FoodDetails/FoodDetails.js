@@ -105,7 +105,7 @@ export default function FoodDetails(props) {
             />
         </Box>
         <div className={classes.root} style={{"backgroundColor":"white"}}>
-        <Tabs value={value} onChange={handleChange} centered>
+        <Tabs value={value} onChange={handleChange}   variant="scrollable" scrollButtons="auto" centered>
             <Tab label="Ingrediends" {...a11yProps(0)} />
             <Tab label="Steps to Cook" {...a11yProps(1)} />
             <Tab label="Rating" {...a11yProps(3)} />
