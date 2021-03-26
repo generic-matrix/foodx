@@ -4,11 +4,8 @@ async function getUserInfo(accessToken) {
     return new Promise((resolve, reject) => {
         const options = {
             "method": "GET",
-            "hostname": "api.amazon.com",
-            "path": "/user/profile",
-            "headers": {
-                "Authorization": `Bearer ${accessToken}`
-            }
+            "hostname": "api.trygistify.com",
+            "path": "/api/v1/alexa?token="+Buffer.from(accessToken).toString('base64')
         };
         let req = https.request(options, (response) => {
             let returnData = '';
@@ -18,7 +15,6 @@ async function getUserInfo(accessToken) {
             });
 
             response.on('end', () => {
-                console.log(returnData);
                 resolve(JSON.parse(returnData));
             });
 
@@ -29,6 +25,7 @@ async function getUserInfo(accessToken) {
         req.end();
     })
 }
+
 
 async function AutoComplete(value){
     return new Promise((resolve, reject) => {
@@ -60,6 +57,7 @@ async function AutoComplete(value){
 
 
 async function FoodById(id,token){
+    //Add a API to check if the user exists by the AWS alexa skill token and calback with the token ...
     return new Promise((resolve, reject) => {
           const options = {
             "method": "GET",

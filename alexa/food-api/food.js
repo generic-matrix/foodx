@@ -6,6 +6,10 @@ class Food{
         this.stepCount=0;
     }
     
+    SetToken(token){
+       this.token=token; 
+    }
+    
     async GetRecepie(value){
         return new Promise(async (resolve, reject) => {
             try{

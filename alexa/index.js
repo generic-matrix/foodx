@@ -19,11 +19,13 @@ const LaunchRequestHandler = {
         }else{
             if (typeof accessToken !== "undefined") {
                 const info = await foodxApi.GetUserInfo(accessToken);
-                console.log(`info: ${JSON.stringify(info)}`)
-                const { name } = info;
-            
-               speakOutput = `Hey ${name},You can ask me how to cook a recepie like pizza, I will guide you the best.`;
-               food=new Food(accessToken);
+                
+                if(info.error==null){
+                   speakOutput = `Hey ${info.data.name},You can ask me how to cook a recepie like pizza, I will guide you the best.`;
+                   food=new Food(info.data.token);
+                }else{
+                    speakOutput = 'Sorry ,'+info.error;
+                }
             } else {
                 speakOutput = 'Internal Error ! ';
             }
@@ -133,7 +135,20 @@ const IntentReflectorHandler = {
             if (handlerInput.requestEnvelope.request.intent.slots.food_name === undefined) {
                 speakOutput = "Hmm ! Sorry , I didn't get the food name , can you rephrase it ? ";
             } else {
-                await food.GetRecepie(handlerInput.requestEnvelope.request.intent.slots.food_name.value).then((response)=>{
+                let input="";
+                if(handlerInput.requestEnvelope.request.intent.slots.food_name.value!==undefined){
+                    input=handlerInput.requestEnvelope.request.intent.slots.food_name.value.toLowerCase();
+                }
+                if(handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values!==undefined){
+                    for(var i=0;i<handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values.length;i++){
+                        if(i==handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values.length-1){
+                            input=input+handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values[i].value.toLowerCase();
+                        }else{
+                            input=input+handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values[i].value.toLowerCase()+" "
+                        }
+                    }
+                }
+                await food.GetRecepie(input).then((response)=>{
                     speakOutput =  response;
                 }).catch((error)=>{
                      speakOutput = error;
@@ -172,8 +187,26 @@ const ErrorHandler = {
     canHandle() {
         return true;
     },
-    handle(handlerInput, error) {
-        const speakOutput = "Sorry, I din't get the context ,you may ask how to cook sandwich or any other recipie ,try it !  ";
+    async handle(handlerInput, error) {
+        let input="";
+        if(handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values!==undefined){
+            for(var i=0;i<handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values.length;i++){
+                if(i==handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values.length-1){
+                    input=input+handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values[i].value.toLowerCase();
+                }else{
+                    input=input+handlerInput.requestEnvelope.request.intent.slots.food_name.slotValue.values[i].value.toLowerCase()+" "
+                }
+            }
+        }
+        if(input.length>1){
+            await food.GetRecepie(input).then((response)=>{
+                    speakOutput =  response;
+                }).catch((error)=>{
+                     speakOutput = error;
+                })
+        }else{
+            speakOutput = "Sorry, I din't get the context ,you may ask how to cook sandwich or any other recipie ,try it !  ";
+        }
         console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
 
         return handlerInput.responseBuilder
