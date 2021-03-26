@@ -1,6 +1,7 @@
 package com.project.foodx.usermodule.service;
 import com.project.foodx.usermodule.entity.*;
 import com.project.foodx.usermodule.response.UserRepository;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ public class UserService {
     public Boolean AddNewUser(User user) {
         return userRepository.AddUserToElasticSearch(user);
     }
+
+    public JSONObject GetUserDataByAlexaToken(String token) { return userRepository.GetUserDataByAlexaToken(token); }
 
     public String CheckUserExists(User user) { return userRepository.CheckIfUserExistsInElasticSearch(user); }
 

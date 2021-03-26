@@ -1,5 +1,6 @@
 package com.project.foodx.controller;
 
+import java.util.Base64;
 import java.util.List;
 import com.project.foodx.auth.AuthService;
 import com.project.foodx.response.ResponseObject;
@@ -120,4 +121,24 @@ public class UserController {
             return new ResponseObject(null,"Malformed Inputs");
         }
     }
+
+    @GetMapping(value ="/alexa", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseObject alexa(@RequestParam String token) {
+        try {
+            if (token.length() > 0) {
+                byte[] decoded = Base64.getDecoder().decode(token);
+                String decoded_token = new String(decoded);
+                JSONObject obj = userService.GetUserDataByAlexaToken(decoded_token);
+                return new ResponseObject(obj.getAsString("error"), obj.get("data"));
+            } else {
+                return new ResponseObject("The token paramas is missing", null);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+            //The malformed base64 string
+            return new ResponseObject(ex.getMessage(), null);
+        }
+    }
+
+
 }

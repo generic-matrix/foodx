@@ -1,6 +1,7 @@
 package com.project.foodx.usermodule.response;
 
 import com.project.foodx.usermodule.entity.*;
+import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface UserRepository {
     Food SearchFoodByIdInElasticSearch(String food_id);
     List<SnapShot> SearchFoodByByGeo(float lat, float lng);
     Boolean AddRating(String foodId, Rating rating);
+    JSONObject GetUserDataByAlexaToken(String token);
 }

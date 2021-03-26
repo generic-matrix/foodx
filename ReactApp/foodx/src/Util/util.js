@@ -1,5 +1,5 @@
 var pos = require('pos');
-const host="http://localhost:9091";
+const host="https://api.trygistify.com";
 function Login(email,password){   
     return new Promise(function(resolve,reject){
         fetch(host+'/api/v1/login', {  

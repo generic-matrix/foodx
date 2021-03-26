@@ -1,8 +1,10 @@
 package com.project.foodx.usermodule.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.foodx.auth.AuthService;
 import com.project.foodx.usermodule.entity.*;
 import com.project.foodx.usermodule.service.Util;
+import net.minidev.json.JSONObject;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
@@ -22,8 +24,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -80,6 +86,35 @@ public class UserRepositoryImpl implements UserRepository{
         }
         catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private String GetIdByEmail(String email){
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices(UserIndex);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.boolQuery().must(termQuery("email.keyword", email)));
+        searchRequest.source(searchSourceBuilder);
+        String return_id=null;
+        try {
+            SearchResponse searchResponse = null;
+            searchResponse =client.search(searchRequest, RequestOptions.DEFAULT);
+            if (searchResponse.getHits().getTotalHits().value > 0) {
+                SearchHit[] searchHit = searchResponse.getHits().getHits();
+                for (SearchHit hit : searchHit) {
+                    return_id=hit.getId();
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(return_id==null){
+            return null;
+        }else {
+            return return_id;
         }
     }
 
@@ -248,6 +283,67 @@ public class UserRepositoryImpl implements UserRepository{
         }catch (Exception ex){
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public JSONObject GetUserDataByAlexaToken(String token) {
+        try {
+            URL url = new URL("https://api.amazon.com/user/profile");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Authorization", "Bearer " + token);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestMethod("GET");
+            if(conn.getResponseCode()!=200){
+                JSONObject obj = new JSONObject();
+                obj.put("error","Invalid Alexa token");
+                obj.put("data",null);
+                return obj;
+            }
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String output;
+
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+            in.close();
+            AlexaUser alexaUser=objectMapper.convertValue(response.toString(),AlexaUser.class);
+            if(alexaUser.getError()!=null){
+                JSONObject obj = new JSONObject();
+                obj.put("error",alexaUser.getError());
+                obj.put("data",null);
+                return obj;
+            }else{
+                //Search the user by email and get the id
+                String id=GetIdByEmail(alexaUser.getEmail());
+                if(id==null){
+                    JSONObject obj = new JSONObject();
+                    obj.put("error","User does not exists");
+                    obj.put("data",null);
+                    return obj;
+                }else{
+                    //from the id generate the token and add in the alexauser
+                    User userDto = new User();
+                    userDto.setId(id);
+                    userDto.setEmail(alexaUser.getEmail());
+                    AuthService auth=new AuthService();
+                    alexaUser.setToken(auth.generateJWTToken(userDto));
+                    JSONObject obj = new JSONObject();
+                    obj.put("error",null);
+                    JSONObject obj2 = new JSONObject();
+                    obj2.put("name",alexaUser.getName());
+                    obj2.put("token",alexaUser.getToken());
+                    obj.put("data",obj2);
+                    return obj;
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+            JSONObject obj = new JSONObject();
+            obj.put("error","Internal Error");
+            obj.put("data",null);
+            return obj;
         }
     }
 }
